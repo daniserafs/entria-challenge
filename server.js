@@ -8,14 +8,42 @@ const connectionString = 'mongodb+srv://danidinha:Meowzinho12@entria-challenge.z
 MongoClient.connect(connectionString, { useUnifiedTopology: true}).then(client => {
     console.log('Connected to Database')
     const db = client.db('entria-challenge')
-    app.use(bodyParser.urlencoded({extended: true}))
-    app.get('/', (req, res) => {
-        res.sendFile('C:/Users/danye/Projeto/entria-challenge' + '/index.html')
+    const quotesCollection = db.collection('quotes')
+    const danielaCollection = db.collection('daniela')
+
+    app.use(express.json())
+
+    app.get('/quotes', async (req, res) => {
+        try{
+            const results = await quotesCollection.find().toArray()
+            console.log(results)
+            
+            return res.json({data: results})
+        }catch(e){
+            console.error(e)
+        }
+        return res.end()
     })
-    app.post('/quotes', (req, res) => {
-        console.log(req.body)
+
+    app.post('/quotes', async (req, res) => {
+        try{
+            await quotesCollection.insertOne(req.body)
+            res.end()
+        }catch(e){
+            console.log(e)
+        }
+    })
+
+    app.post('/daniela', async (req, res) => {
+        try {
+            await danielaCollection.insertOne(req.body)
+            res.status(200)
+            res.send("Success!")
+        }catch(e){
+            console.error(e)
+        }
     })
     app.listen(3000, function(){
         console.log('listening on 3000')
 })
-}).catch(error => console.log(error))
+}).catch(error => console.error(error))
