@@ -18,15 +18,13 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
     app.get("/quotes", async (req, res) => {
       try {
         const results = await quotesCollection.find().toArray();
-        console.log(results);
-
         return res.json({ data: results });
       } catch (e) {
         console.error(e);
+        return res.status(400).json({
+          error: "Error getting data!",
+        });
       }
-      return res.status(400).json({
-        error: "Error getting data!"
-      })
     });
 
     app.post("/quotes", async (req, res) => {
@@ -36,8 +34,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error creating data!"
-        })
+          error: "Error creating data!",
+        });
       }
     });
 
@@ -49,8 +47,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error creating data!"
-        })
+          error: "Error creating data!",
+        });
       }
     });
 
@@ -63,7 +61,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
           {
             $set: {
               name: req.body.name,
-              idade: req.body.idade
+              idade: req.body.idade,
             },
           },
           {
@@ -74,8 +72,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error updating data!"
-        })
+          error: "Error updating data!",
+        });
       }
 
       // I don't know how do deal with ids
