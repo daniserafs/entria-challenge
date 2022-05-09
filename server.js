@@ -24,7 +24,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
       }
-      return res.end();
+      return res.status(400).json({
+        error: "Error getting data!"
+      })
     });
 
     app.post("/quotes", async (req, res) => {
@@ -33,6 +35,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         res.end();
       } catch (e) {
         console.error(e);
+        return res.status(400).json({
+          error: "Error creating data!"
+        })
       }
     });
 
@@ -43,30 +48,37 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
         res.send("Success!");
       } catch (e) {
         console.error(e);
+        return res.status(400).json({
+          error: "Error creating data!"
+        })
       }
     });
 
-    app.put("/daniela/:id", async (req, res) => {
+    app.put("/daniela/:_id", async (req, res) => {
       try {
         await danielaCollection.findOneAndUpdate(
           {
-            _id: req.params.id,
+            _id: req.params._id,
           },
           {
             $set: {
               name: req.body.name,
-              idade: req.body.idade,
+              idade: req.body.idade
             },
           },
           {
-            upsert: true,
+            upsert: false,
           }
         );
         res.send("Sucess!");
       } catch (e) {
         console.error(e);
+        return res.status(400).json({
+          error: "Error updating data!"
+        })
       }
-      res.end();
+
+      // I don't know how do deal with ids
     });
 
     app.listen(3000, function () {
