@@ -21,7 +21,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error getting data!",
+          error: "Error getting data!"
         });
       }
     });
@@ -33,7 +33,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error creating data!",
+          error: "Error creating data!"
         });
       }
     });
@@ -46,7 +46,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error creating data!",
+          error: "Error creating data!"
         });
       }
     });
@@ -67,16 +67,32 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
             upsert: false,
           }
         );
-        res.send("Sucess!");
+        res.send("Success!");
       } catch (e) {
         console.error(e);
         return res.status(400).json({
-          error: "Error updating data!",
+          error: "Error updating data!"
         });
       }
 
       // I don't know how do deal with ids
     });
+    
+    app.delete("/daniela", async(req,res) => {
+      try{
+        await danielaCollection.deleteOne(
+          {
+            name: req.body.name
+          }
+        );
+        res.send("Success!")
+      }catch(e) {
+        console.error(e);
+        return res.status(400).json({
+          error: "Error deleting data!"
+        });
+      }
+    })
 
     app.listen(3000, function () {
       console.log("listening on 3000");
