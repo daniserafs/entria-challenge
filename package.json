@@ -6,6 +6,10 @@
   "author": "Daniela Serafim Soares <danyelaserafim@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "start:server": "yarn workspace @entria-challenge/api dev",
+    "start:web" : "yarn workspace @entria-challenge/web start"
+  },
   "workspaces": {
     "packages": [
       "packages/*"

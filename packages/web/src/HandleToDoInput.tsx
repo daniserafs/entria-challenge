@@ -1,7 +1,5 @@
 import react from "react";
-import { useState } from "react";
-import { useRef } from "react";
-import { setTokenSourceMapRange } from "typescript";
+import { useState, useRef } from "react";
 
 const HandleToDoInput: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
