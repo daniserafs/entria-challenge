@@ -1,21 +1,14 @@
 {
   "name": "entria-challenge",
   "version": "1.0.0",
-  "description": "Fullstack Challenge for Entria",
   "main": "index.js",
-  "author": "Daniela Serafim",
+  "repository": "git@github.com:daniserafs/entria-challenge.git",
+  "author": "Daniela Serafim Soares <danyelaserafim@gmail.com>",
   "license": "MIT",
-  "private": false,
-  "scripts": {
-    "dev": "nodemon server.js"
-  },
-  "dependencies": {
-    "body-parser": "^1.20.0",
-    "dotenv": "^16.0.0",
-    "express": "^4.18.1",
-    "mongodb": "^4.5.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.16"
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   }
 }
