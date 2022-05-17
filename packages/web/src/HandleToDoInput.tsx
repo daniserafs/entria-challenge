@@ -1,5 +1,6 @@
 import react from "react";
 import { useState, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const HandleToDoInput: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -28,7 +29,8 @@ const HandleToDoInput: React.FC = () => {
       <div>
         <ul>
           {todos.map((todo) => {
-            return <li key={todo}>{todo}</li>;
+            const id = uuidv4();
+            return <li key={id}>{todo}</li>;
           })}
         </ul>
       </div>
