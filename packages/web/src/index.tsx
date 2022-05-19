@@ -1,12 +1,17 @@
 import ReactDOM from "react-dom";
-import HandleToDoInput from "./HandleToDoInput"
+import HandleToDoInput from "./HandleToDoInput";
 
 const App = () => {
   return (
-    <div>
+    <div className="app">
       <HandleToDoInput />
       <footer>
-        <p>Made by <a href="https://github.com/daniserafs/entria-challenge">Daniela Serafim</a></p>
+        <p>
+          Made by{" "}
+          <a href="https://github.com/daniserafs/entria-challenge">
+            Daniela Serafim
+          </a>
+        </p>
       </footer>
     </div>
   );

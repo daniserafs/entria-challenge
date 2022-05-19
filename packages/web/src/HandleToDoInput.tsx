@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
+import "./styles.css";
 
 interface ToDo {
   id: string;
@@ -14,37 +15,40 @@ const HandleToDoInput: React.FC = () => {
 
   const addTask = () => {
     const id = uuidv4();
-    setToDos([...toDos, { id, task: input, check: false}]);
+    setToDos([...toDos, { id, task: input }]);
     setInput("What needs to be done today");
     inputRef.current?.focus();
   };
 
   const handleDelete = (id: string) => {
     const newToDo = toDos.filter((todo) => todo.id !== id);
-
     setToDos(newToDo);
     console.log(newToDo);
   };
-  /* TODO: write the check function it'll probably update the false to true when someone completes a task
-  but doenst want to have it off the list, so it has a differente behavior than the handleDelete */
+
+  /* TODO: 
+  write the check function it'll probably update the false to true when someone completes a task
+  but doenst want to have it off the list, so it has a differente behavior than the handleDelete 
+  */
   const handleCheck = () => {
-    return null;
+    return console.log("checked");
   };
 
   return (
     <div>
       <header>
-        <h1>to do list</h1>
+        <h1 className="title">to do list</h1>
         <input
+        className="input"
           ref={inputRef}
           value={input}
           onChange={(event) => {
             setInput(event.target.value);
           }}
         />
-        <button onClick={addTask}>Add task</button>
+        <button className="button" onClick={addTask}>Add task</button>
       </header>
-      <div>
+      <div className="list-container">
         <ul>
           {toDos.map((toDo) => {
             return (
@@ -54,7 +58,7 @@ const HandleToDoInput: React.FC = () => {
                   <input
                     type="checkbox"
                     checked={toDo.check}
-                    onChange={() => handleCheck()}
+                    onChange={handleCheck}
                   />
                 </span>
                 <button type="button" onClick={() => handleDelete(toDo.id)}>
