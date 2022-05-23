@@ -1,7 +1,19 @@
 import ReactDOM from "react-dom";
 import HandleToDoInput from "./HandleToDoInput";
+import React, { useEffect } from "react";
+import axios from "axios";
 
 const App = () => {
+
+  useEffect(async (res, req) => {
+    try {
+      await axios.get("/daniela");
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+  
   return (
     <div className="app">
       <HandleToDoInput />
