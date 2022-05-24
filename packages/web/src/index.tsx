@@ -4,16 +4,17 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 const App = () => {
+  function getTodos() {
+    axios.get("/daniela");
+    console.log("got Todos");
+  }
 
-  useEffect(async (res, req) => {
-    try {
-      await axios.get("/daniela");
-      console.log(res);
-    } catch (e) {
-      console.error(e);
+  useEffect(() => {
+    async function showTodos() {
+      await getTodos();
     }
   }, []);
-  
+
   return (
     <div className="app">
       <HandleToDoInput />
