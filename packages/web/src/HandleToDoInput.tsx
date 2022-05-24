@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import "./styles.css";
 
@@ -9,6 +10,14 @@ interface ToDo {
 }
 
 const HandleToDoInput: React.FC = () => {
+
+  useEffect(() => {
+    async function showTodos() {
+      await axios.get("/quotes");
+      console.log("of course it's not working")
+    }
+    showTodos();
+  }, []);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [input, setInput] = useState("What needs to be done today");
   const [toDos, setToDos] = useState<Array<ToDo>>([]);

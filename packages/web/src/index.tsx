@@ -1,19 +1,9 @@
 import ReactDOM from "react-dom";
 import HandleToDoInput from "./HandleToDoInput";
-import React, { useEffect } from "react";
-import axios from "axios";
+import React from "react";
+
 
 const App: React.FC = () => {
-  useEffect(() => {
-    function getTodos() {
-      axios.get("/daniela");
-      console.log("of course it's not working");
-    }
-    async function showTodos() {
-      await getTodos();
-    }
-    showTodos()
-  }, []);
 
   return (
     <div className="app">
@@ -34,4 +24,3 @@ ReactDOM.render(<App />, document.querySelector("#root"));
 function res(res: any) {
   throw new Error("Function not implemented.");
 }
-
