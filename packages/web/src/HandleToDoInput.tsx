@@ -10,11 +10,13 @@ interface ToDo {
 }
 
 const HandleToDoInput: React.FC = () => {
+  const [countries, setCountries] = useState([])
 
   useEffect(() => {
     async function showTodos() {
-      await axios.get("/quotes");
-      console.log("of course it's not working")
+      const res = await axios.get("http://localhost:8080/quotes");
+      console.log("of course it's not working", res.data)
+      
     }
     showTodos();
   }, []);

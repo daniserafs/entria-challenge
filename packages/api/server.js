@@ -5,7 +5,9 @@ const MongoClient = require("mongodb").MongoClient;
 
 const connectionString = process.env.CONNECTION_STRING;
 
-MongoClient.connect(connectionString, { useUnifiedTopology: true })
+const controller = MongoClient.connect(connectionString, {
+  useUnifiedTopology: true,
+})
   .then((client) => {
     console.log("Connected to Database");
     const db = client.db("entria-challenge");
@@ -14,7 +16,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
 
     app.use(express.json());
 
-    app.get("/quotes", async (req, res) => {
+    const show = app.get("/quotes", async (req, res) => {
       try {
         const results = await quotesCollection.find().toArray();
         return res.json({ data: results });
@@ -26,7 +28,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       }
     });
 
-    app.post("/quotes", async (req, res) => {
+    const createQuote = app.post("/quotes", async (req, res) => {
       try {
         await quotesCollection.insertOne(req.body);
         res.end();
@@ -38,7 +40,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       }
     });
 
-    app.post("/daniela", async (req, res) => {
+    const createData = app.post("/daniela", async (req, res) => {
       try {
         await danielaCollection.insertOne(req.body);
         res.status(200);
@@ -51,7 +53,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       }
     });
 
-    app.put("/daniela/:_id", async (req, res) => {
+    const updateData = app.put("/daniela/:_id", async (req, res) => {
       try {
         await danielaCollection.findOneAndUpdate(
           {
@@ -78,7 +80,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       // I don't know how do deal with ids
     });
 
-    app.delete("/daniela", async (req, res) => {
+    const deleteData = app.delete("/daniela", async (req, res) => {
       try {
         await danielaCollection.deleteOne({
           name: req.body.name,
@@ -92,8 +94,10 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true })
       }
     });
 
-    app.listen(3000, function () {
-      console.log("listening on 3000");
+    app.listen(8080, function () {
+      console.log("listening on 8080");
     });
   })
   .catch((error) => console.error(error));
+
+module.exports = new controller();
