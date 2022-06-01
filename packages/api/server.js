@@ -1,14 +1,24 @@
+const mongoose = require("mongoose");
+// const MongoClient = require("mongodb").MongoClient;
 const express = require("express");
 require("dotenv").config();
-const app = express();
-const MongoClient = require("mongodb").MongoClient;
 
+const app = express();
 const connectionString = process.env.CONNECTION_STRING;
 
-const controller = MongoClient.connect(connectionString, {
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
   useUnifiedTopology: true,
-})
-  .then((client) => {
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connnection error:"));
+
+app.listen(8080, function () {
+  console.log("listening on 8080");
+});
+
+/* .then((client) => {
     console.log("Connected to Database");
     const db = client.db("entria-challenge");
     const quotesCollection = db.collection("quotes");
@@ -16,7 +26,7 @@ const controller = MongoClient.connect(connectionString, {
 
     app.use(express.json());
 
-    const show = app.get("/quotes", async (req, res) => {
+    const showQuote = app.get("/quotes", async (req, res) => {
       try {
         const results = await quotesCollection.find().toArray();
         return res.json({ data: results });
@@ -94,10 +104,6 @@ const controller = MongoClient.connect(connectionString, {
       }
     });
 
-    app.listen(8080, function () {
-      console.log("listening on 8080");
-    });
+    
   })
-  .catch((error) => console.error(error));
-
-module.exports = new controller();
+  .catch((error) => console.error(error)); */
